@@ -1,47 +1,24 @@
-%option noyywrap
-
 %{
+#include <assert.h>
 
-#include <glib.h>
-#include "facile.y.h"
-
+#define TOK_IF 258
+#define TOK_THEN 259
 %}
-
 %%
-
-0|[1-9][0-9]* {
-	sscanf(yytext, "%lu", &yylval.number);
-	return TOK_NUMBER;
+if {
+assert(printf("'if' found")
+);
+return TOK_IF;
 }
-
-print	return TOK_PRINT;
-
-read	return TOK_READ;
-
-[a-zA-Z_][a-zA-Z0-9_]* {
-	yylval.string = yytext;
-	return TOK_IDENT;
+then {
+assert(printf("'then' found")
+);
+return TOK_THEN;
 }
-
-":="	return TOK_AFFECT;
-
-";"	return TOK_SEMICOLON;
-
-"-"	return TOK_SUB;
-
-"+"	return TOK_ADD;
-
-"*"	return TOK_MUL;
-
-"/"	return TOK_DIV;
-
-"("	return TOK_OPEN_PARENTHESIS;
-
-")"	return TOK_CLOSE_PARENTHESIS;
-
-[ \t\n]	;
-
-. return yytext[0];
-
+[ab]*a[ab]*b[ab]*b[ab]*
+a assert(printf("'abba' found"));
+return yytext[0];
 %%
-
+/*
+* file: facile.lex
+* version: 0.2.0
